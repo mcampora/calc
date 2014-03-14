@@ -31,29 +31,24 @@ blank [ \t]
 %{
   // Code run each time yylex is called.
   loc.step ();
-
-//"-"      return yy::calcxx_parser::make_MINUS(loc);
-//"+"      return yy::calcxx_parser::make_PLUS(loc);
-//"*"      return yy::calcxx_parser::make_STAR(loc);
-//"/"      return yy::calcxx_parser::make_SLASH(loc);
 %}
 
-{blank}+   loc.step ();
-[\n]+      loc.lines (yyleng); loc.step ();
+{blank}+ loc.step ();
+[\n]+    loc.lines (yyleng); loc.step ();
 "("      return yy::calcxx_parser::make_LPAREN(loc);
 ")"      return yy::calcxx_parser::make_RPAREN(loc);
 ":="     return yy::calcxx_parser::make_ASSIGN(loc);
 "=="     return yy::calcxx_parser::make_EQUAL(loc);
-"<"     return yy::calcxx_parser::make_LT(loc);
-">"     return yy::calcxx_parser::make_GT(loc);
+"!="     return yy::calcxx_parser::make_NEQUAL(loc);
+"<"      return yy::calcxx_parser::make_LT(loc);
+">"      return yy::calcxx_parser::make_GT(loc);
 "<="     return yy::calcxx_parser::make_LTE(loc);
 ">="     return yy::calcxx_parser::make_GTE(loc);
 "||"     return yy::calcxx_parser::make_OR(loc);
 "&&"     return yy::calcxx_parser::make_AND(loc);
-"!"     return yy::calcxx_parser::make_NOT(loc);
+"!"      return yy::calcxx_parser::make_NOT(loc);
 
-
-{int}      {
+{int}    {
   errno = 0;
   long n = strtol (yytext, NULL, 10);
   if (! (INT_MIN <= n && n <= INT_MAX && errno != ERANGE))
@@ -61,9 +56,11 @@ blank [ \t]
   return yy::calcxx_parser::make_NUMBER(n, loc);
 }
 
-{id}       return yy::calcxx_parser::make_IDENTIFIER(yytext, loc);
-.          driver.error (loc, "invalid character");
-<<EOF>>    return yy::calcxx_parser::make_END(loc);
+{id}     return yy::calcxx_parser::make_IDENTIFIER(yytext, loc);
+
+.        driver.error (loc, "invalid character");
+
+<<EOF>>  return yy::calcxx_parser::make_END(loc);
 %%
 
 void

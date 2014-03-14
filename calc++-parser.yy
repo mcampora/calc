@@ -33,6 +33,7 @@ class calcxx_driver;
   LPAREN  "("
   RPAREN  ")"
   EQUAL   "=="
+  NEQUAL  "!="
   LT      "<"
   GT      ">"
   LTE     "<="
@@ -45,35 +46,39 @@ class calcxx_driver;
 %token <int> NUMBER "number"
 %type  <int> exp
 %printer { yyoutput << $$; } <*>;
+
 %%
 %start unit;
 
-unit: assignments exp  { driver.result = $2; };
+unit: 
+	assignments exp  { driver.result = $2; };
 
 assignments:
-  %empty                 {}
-| assignments assignment {};
+	%empty                 		{}
+	| assignments assignment 	{};
 
 assignment:
-  "identifier" ":=" exp { driver.variables[$1] = $3; };
+	"identifier" ":=" exp { driver.variables[$1] = $3; };
 
 //%left OR
 //%left AND
-//%left UNOT
+//%left NOT
+//%left LT LTE GT GTE NEQUAL EQUAL
 
 exp:
-  "(" exp ")"   { std::swap ($$, $2); }
-| "identifier"  { $$ = driver.variables[$1]; }
-| "number"      { std::swap ($$, $1); }
-| exp "==" exp  { $$ = $1 == $3; }
-| exp "||" exp  { $$ = $1 || $3; }
-| exp "&&" exp  { $$ = $1 && $3; }
-| exp "<" exp  { $$ = $1 < $3; }
-| exp ">" exp  { $$ = $1 > $3; }
-| exp "<=" exp  { $$ = $1 <= $3; }
-| exp ">=" exp  { $$ = $1 >= $3; }
-| NOT exp %prec UNOT { $$ = !($2); }
-;
+	"(" exp ")"   	{ std::swap ($$, $2); }
+	| "identifier"  { $$ = driver.variables[$1]; }
+	| "number"      { std::swap ($$, $1); }
+	| exp "==" exp  { $$ = $1 == $3; }
+	| exp "!=" exp  { $$ = $1 != $3; }
+	| exp "||" exp  { $$ = $1 || $3; }
+	| exp "&&" exp  { $$ = $1 && $3; }
+	| exp "<" exp  	{ $$ = $1 < $3; }
+	| exp ">" exp  	{ $$ = $1 > $3; }
+	| exp "<=" exp  { $$ = $1 <= $3; }
+	| exp ">=" exp  { $$ = $1 >= $3; }
+	| NOT exp 		{ $$ = !($2); }
+	;
 
 %%
 void
