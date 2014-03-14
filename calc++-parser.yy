@@ -43,6 +43,7 @@ class calcxx_driver;
   NOT     "!"
 ;
 %token <std::string> IDENTIFIER "identifier"
+%token <std::string> STRING "string"
 %token <int> NUMBER "number"
 %type  <int> exp
 %printer { yyoutput << $$; } <*>;
@@ -69,6 +70,7 @@ exp:
 	"(" exp ")"   	{ std::swap ($$, $2); }
 	| "identifier"  { $$ = driver.variables[$1]; }
 	| "number"      { std::swap ($$, $1); }
+	| "string"      { }
 	| exp "==" exp  { $$ = $1 == $3; }
 	| exp "!=" exp  { $$ = $1 != $3; }
 	| exp "||" exp  { $$ = $1 || $3; }

@@ -17,9 +17,10 @@
 static yy::location loc;
 %}
 %option noyywrap nounput batch debug noinput
-id    [a-zA-Z][a-zA-Z_0-9]*
-int   [0-9]+
-blank [ \t]
+string \".*?\"
+id     [a-zA-Z][a-zA-Z_0-9]*
+int    [0-9]+
+blank  [ \t]
 
 %{
   // Code run each time a pattern is matched.
@@ -57,6 +58,8 @@ blank [ \t]
 }
 
 {id}     return yy::calcxx_parser::make_IDENTIFIER(yytext, loc);
+
+{string} return yy::calcxx_parser::make_STRING(yytext, loc);
 
 .        driver.error (loc, "invalid character");
 
