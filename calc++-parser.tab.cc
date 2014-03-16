@@ -49,11 +49,15 @@
 
 #line 51 "calc++-parser.tab.cc" // lalr1.cc:407
 // Unqualified %code blocks.
-#line 11189 "./doc/bison.texi" // lalr1.cc:408
+#line 24 "calc++-parser.yy" // lalr1.cc:408
 
-# include "calc++-driver.hh"
+	# include "calc++-driver.hh"
+	# define ECHO(v);
+	# define OUT(e, v) std::cout << e << " -> " << v << "\n"
+	# define OUT2(e1, e2, v) std::cout << e1 << " " << e2 << " -> " << v << "\n"
+	# define OUT3(e1, e2, e3, v) std::cout << e1 << " " << e2 << " " << e3 << " -> " << v << "\n"
 
-#line 57 "calc++-parser.tab.cc" // lalr1.cc:408
+#line 61 "calc++-parser.tab.cc" // lalr1.cc:408
 
 
 #ifndef YY_
@@ -139,7 +143,7 @@
 
 
 namespace yy {
-#line 143 "calc++-parser.tab.cc" // lalr1.cc:474
+#line 147 "calc++-parser.tab.cc" // lalr1.cc:474
 
   /* Return YYSTR after stripping away unnecessary quotes and
      backslashes, so that it's suitable for yyerror.  The heuristic is
@@ -310,30 +314,30 @@ namespace yy {
     {
             case 15: // "identifier"
 
-#line 11213 "./doc/bison.texi" // lalr1.cc:617
+#line 52 "calc++-parser.yy" // lalr1.cc:617
         { yyoutput << yysym.value.template as< std::string > (); }
-#line 316 "calc++-parser.tab.cc" // lalr1.cc:617
+#line 320 "calc++-parser.tab.cc" // lalr1.cc:617
         break;
 
       case 16: // "string"
 
-#line 11213 "./doc/bison.texi" // lalr1.cc:617
+#line 52 "calc++-parser.yy" // lalr1.cc:617
         { yyoutput << yysym.value.template as< std::string > (); }
-#line 323 "calc++-parser.tab.cc" // lalr1.cc:617
+#line 327 "calc++-parser.tab.cc" // lalr1.cc:617
         break;
 
       case 17: // "number"
 
-#line 11213 "./doc/bison.texi" // lalr1.cc:617
+#line 52 "calc++-parser.yy" // lalr1.cc:617
         { yyoutput << yysym.value.template as< int > (); }
-#line 330 "calc++-parser.tab.cc" // lalr1.cc:617
+#line 334 "calc++-parser.tab.cc" // lalr1.cc:617
         break;
 
       case 22: // exp
 
-#line 11213 "./doc/bison.texi" // lalr1.cc:617
+#line 52 "calc++-parser.yy" // lalr1.cc:617
         { yyoutput << yysym.value.template as< int > (); }
-#line 337 "calc++-parser.tab.cc" // lalr1.cc:617
+#line 341 "calc++-parser.tab.cc" // lalr1.cc:617
         break;
 
 
@@ -449,13 +453,13 @@ namespace yy {
 
 
     // User initialization code.
-    #line 11182 "./doc/bison.texi" // lalr1.cc:725
+    #line 17 "calc++-parser.yy" // lalr1.cc:729
 {
-  // Initialize the initial location.
-  yyla.location.begin.filename = yyla.location.end.filename = &driver.file;
+  	// Initialize the initial location.
+  	yyla.location.begin.filename = yyla.location.end.filename = &driver.file;
 }
 
-#line 459 "calc++-parser.tab.cc" // lalr1.cc:725
+#line 463 "calc++-parser.tab.cc" // lalr1.cc:729
 
     /* Initialize the stack.  The initial state will be set in
        yynewstate, since the latter expects the semantical and the
@@ -577,109 +581,109 @@ namespace yy {
           switch (yyn)
             {
   case 2:
-#line 11219 "./doc/bison.texi" // lalr1.cc:847
+#line 58 "calc++-parser.yy" // lalr1.cc:847
     { driver.result = yystack_[0].value.as< int > (); }
-#line 583 "calc++-parser.tab.cc" // lalr1.cc:847
+#line 587 "calc++-parser.tab.cc" // lalr1.cc:847
     break;
 
   case 3:
-#line 11222 "./doc/bison.texi" // lalr1.cc:847
+#line 61 "calc++-parser.yy" // lalr1.cc:847
     {}
-#line 589 "calc++-parser.tab.cc" // lalr1.cc:847
+#line 593 "calc++-parser.tab.cc" // lalr1.cc:847
     break;
 
   case 4:
-#line 11223 "./doc/bison.texi" // lalr1.cc:847
+#line 62 "calc++-parser.yy" // lalr1.cc:847
     {}
-#line 595 "calc++-parser.tab.cc" // lalr1.cc:847
+#line 599 "calc++-parser.tab.cc" // lalr1.cc:847
     break;
 
   case 5:
-#line 11226 "./doc/bison.texi" // lalr1.cc:847
+#line 66 "calc++-parser.yy" // lalr1.cc:847
     { driver.variables[yystack_[2].value.as< std::string > ()] = yystack_[0].value.as< int > (); }
-#line 601 "calc++-parser.tab.cc" // lalr1.cc:847
+#line 605 "calc++-parser.tab.cc" // lalr1.cc:847
     break;
 
   case 6:
-#line 11234 "./doc/bison.texi" // lalr1.cc:847
-    { std::swap (yylhs.value.as< int > (), yystack_[1].value.as< int > ()); }
-#line 607 "calc++-parser.tab.cc" // lalr1.cc:847
+#line 70 "calc++-parser.yy" // lalr1.cc:847
+    { yylhs.value.as< int > () = driver.variables[yystack_[0].value.as< std::string > ()]; OUT(yystack_[0].value.as< std::string > (), yylhs.value.as< int > ()); }
+#line 611 "calc++-parser.tab.cc" // lalr1.cc:847
     break;
 
   case 7:
-#line 11235 "./doc/bison.texi" // lalr1.cc:847
-    { yylhs.value.as< int > () = driver.variables[yystack_[0].value.as< std::string > ()]; }
-#line 613 "calc++-parser.tab.cc" // lalr1.cc:847
+#line 71 "calc++-parser.yy" // lalr1.cc:847
+    { yylhs.value.as< int > () = yystack_[0].value.as< int > (); OUT(yystack_[0].value.as< int > (), yylhs.value.as< int > ());			}
+#line 617 "calc++-parser.tab.cc" // lalr1.cc:847
     break;
 
   case 8:
-#line 11236 "./doc/bison.texi" // lalr1.cc:847
-    { std::swap (yylhs.value.as< int > (), yystack_[0].value.as< int > ()); }
-#line 619 "calc++-parser.tab.cc" // lalr1.cc:847
+#line 72 "calc++-parser.yy" // lalr1.cc:847
+    { }
+#line 623 "calc++-parser.tab.cc" // lalr1.cc:847
     break;
 
   case 9:
-#line 11237 "./doc/bison.texi" // lalr1.cc:847
-    { }
-#line 625 "calc++-parser.tab.cc" // lalr1.cc:847
+#line 74 "calc++-parser.yy" // lalr1.cc:847
+    { yylhs.value.as< int > () = yystack_[1].value.as< int > (); OUT3("(", yystack_[1].value.as< int > (), ")", yylhs.value.as< int > ());			}
+#line 629 "calc++-parser.tab.cc" // lalr1.cc:847
     break;
 
   case 10:
-#line 11238 "./doc/bison.texi" // lalr1.cc:847
-    { yylhs.value.as< int > () = yystack_[2].value.as< int > () == yystack_[0].value.as< int > (); }
-#line 631 "calc++-parser.tab.cc" // lalr1.cc:847
+#line 75 "calc++-parser.yy" // lalr1.cc:847
+    { yylhs.value.as< int > () = !(yystack_[0].value.as< int > ()); OUT2("!", yystack_[0].value.as< int > (), yylhs.value.as< int > ());			}
+#line 635 "calc++-parser.tab.cc" // lalr1.cc:847
     break;
 
   case 11:
-#line 11239 "./doc/bison.texi" // lalr1.cc:847
-    { yylhs.value.as< int > () = yystack_[2].value.as< int > () != yystack_[0].value.as< int > (); }
-#line 637 "calc++-parser.tab.cc" // lalr1.cc:847
+#line 77 "calc++-parser.yy" // lalr1.cc:847
+    { yylhs.value.as< int > () = yystack_[2].value.as< int > () == yystack_[0].value.as< int > (); OUT3(yystack_[2].value.as< int > (), "==", yystack_[0].value.as< int > (), yylhs.value.as< int > ());		}
+#line 641 "calc++-parser.tab.cc" // lalr1.cc:847
     break;
 
   case 12:
-#line 11240 "./doc/bison.texi" // lalr1.cc:847
-    { yylhs.value.as< int > () = yystack_[2].value.as< int > () || yystack_[0].value.as< int > (); }
-#line 643 "calc++-parser.tab.cc" // lalr1.cc:847
+#line 78 "calc++-parser.yy" // lalr1.cc:847
+    { yylhs.value.as< int > () = yystack_[2].value.as< int > () != yystack_[0].value.as< int > (); OUT3(yystack_[2].value.as< int > (), "!=", yystack_[0].value.as< int > (), yylhs.value.as< int > ());		}
+#line 647 "calc++-parser.tab.cc" // lalr1.cc:847
     break;
 
   case 13:
-#line 11241 "./doc/bison.texi" // lalr1.cc:847
-    { yylhs.value.as< int > () = yystack_[2].value.as< int > () && yystack_[0].value.as< int > (); }
-#line 649 "calc++-parser.tab.cc" // lalr1.cc:847
+#line 79 "calc++-parser.yy" // lalr1.cc:847
+    { yylhs.value.as< int > () = yystack_[2].value.as< int > () || yystack_[0].value.as< int > (); OUT3(yystack_[2].value.as< int > (), "||", yystack_[0].value.as< int > (), yylhs.value.as< int > ());		}
+#line 653 "calc++-parser.tab.cc" // lalr1.cc:847
     break;
 
   case 14:
-#line 11242 "./doc/bison.texi" // lalr1.cc:847
-    { yylhs.value.as< int > () = yystack_[2].value.as< int > () < yystack_[0].value.as< int > (); }
-#line 655 "calc++-parser.tab.cc" // lalr1.cc:847
+#line 80 "calc++-parser.yy" // lalr1.cc:847
+    { yylhs.value.as< int > () = yystack_[2].value.as< int > () && yystack_[0].value.as< int > (); OUT3(yystack_[2].value.as< int > (), "&&", yystack_[0].value.as< int > (), yylhs.value.as< int > ());		}
+#line 659 "calc++-parser.tab.cc" // lalr1.cc:847
     break;
 
   case 15:
-#line 11243 "./doc/bison.texi" // lalr1.cc:847
-    { yylhs.value.as< int > () = yystack_[2].value.as< int > () > yystack_[0].value.as< int > (); }
-#line 661 "calc++-parser.tab.cc" // lalr1.cc:847
+#line 81 "calc++-parser.yy" // lalr1.cc:847
+    { yylhs.value.as< int > () = yystack_[2].value.as< int > () <  yystack_[0].value.as< int > (); OUT3(yystack_[2].value.as< int > (), "<", yystack_[0].value.as< int > (), yylhs.value.as< int > ());		}
+#line 665 "calc++-parser.tab.cc" // lalr1.cc:847
     break;
 
   case 16:
-#line 11244 "./doc/bison.texi" // lalr1.cc:847
-    { yylhs.value.as< int > () = yystack_[2].value.as< int > () <= yystack_[0].value.as< int > (); }
-#line 667 "calc++-parser.tab.cc" // lalr1.cc:847
+#line 82 "calc++-parser.yy" // lalr1.cc:847
+    { yylhs.value.as< int > () = yystack_[2].value.as< int > () >  yystack_[0].value.as< int > (); OUT3(yystack_[2].value.as< int > (), ">", yystack_[0].value.as< int > (), yylhs.value.as< int > ());		}
+#line 671 "calc++-parser.tab.cc" // lalr1.cc:847
     break;
 
   case 17:
-#line 11245 "./doc/bison.texi" // lalr1.cc:847
-    { yylhs.value.as< int > () = yystack_[2].value.as< int > () >= yystack_[0].value.as< int > (); }
-#line 673 "calc++-parser.tab.cc" // lalr1.cc:847
+#line 83 "calc++-parser.yy" // lalr1.cc:847
+    { yylhs.value.as< int > () = yystack_[2].value.as< int > () <= yystack_[0].value.as< int > (); OUT3(yystack_[2].value.as< int > (), "<=", yystack_[0].value.as< int > (), yylhs.value.as< int > ());		}
+#line 677 "calc++-parser.tab.cc" // lalr1.cc:847
     break;
 
   case 18:
-#line 11246 "./doc/bison.texi" // lalr1.cc:847
-    { yylhs.value.as< int > () = !(yystack_[0].value.as< int > ()); }
-#line 679 "calc++-parser.tab.cc" // lalr1.cc:847
+#line 84 "calc++-parser.yy" // lalr1.cc:847
+    { yylhs.value.as< int > () = yystack_[2].value.as< int > () >= yystack_[0].value.as< int > (); OUT3(yystack_[2].value.as< int > (), ">=", yystack_[0].value.as< int > (), yylhs.value.as< int > ());		}
+#line 683 "calc++-parser.tab.cc" // lalr1.cc:847
     break;
 
 
-#line 683 "calc++-parser.tab.cc" // lalr1.cc:847
+#line 687 "calc++-parser.tab.cc" // lalr1.cc:847
             default:
               break;
             }
@@ -950,10 +954,10 @@ namespace yy {
   const unsigned char
   calcxx_parser::yydefact_[] =
   {
-       3,     0,     0,     1,     0,     0,     7,     9,     8,     4,
-       2,     7,     0,    18,     0,     0,     0,     0,     0,     0,
-       0,     0,     0,     6,     5,    10,    11,    14,    15,    16,
-      17,    12,    13
+       3,     0,     0,     1,     0,     0,     6,     8,     7,     4,
+       2,     6,     0,    10,     0,     0,     0,     0,     0,     0,
+       0,     0,     0,     9,     5,    11,    12,    15,    16,    17,
+      18,    13,    14
   };
 
   const signed char
@@ -1007,8 +1011,8 @@ namespace yy {
   const unsigned char
   calcxx_parser::yyr2_[] =
   {
-       0,     2,     2,     0,     2,     3,     3,     1,     1,     1,
-       3,     3,     3,     3,     3,     3,     3,     3,     2
+       0,     2,     2,     0,     2,     3,     1,     1,     1,     3,
+       2,     3,     3,     3,     3,     3,     3,     3,     3
   };
 
 
@@ -1025,11 +1029,11 @@ namespace yy {
   };
 
 #if YYDEBUG
-  const unsigned short int
+  const unsigned char
   calcxx_parser::yyrline_[] =
   {
-       0, 11219, 11219, 11222, 11223, 11226, 11234, 11235, 11236, 11237,
-   11238, 11239, 11240, 11241, 11242, 11243, 11244, 11245, 11246
+       0,    58,    58,    61,    62,    66,    70,    71,    72,    74,
+      75,    77,    78,    79,    80,    81,    82,    83,    84
   };
 
   // Print the state stack on the debug stream.
@@ -1064,12 +1068,11 @@ namespace yy {
 
 
 } // yy
-#line 1068 "calc++-parser.tab.cc" // lalr1.cc:1155
-#line 11249 "./doc/bison.texi" // lalr1.cc:1156
+#line 1072 "calc++-parser.tab.cc" // lalr1.cc:1155
+#line 87 "calc++-parser.yy" // lalr1.cc:1156
 
 void
 yy::calcxx_parser::error (const location_type& l,
-                          const std::string& m)
-{
-  driver.error (l, m);
+                          const std::string& m) {
+	driver.error (l, m);
 }

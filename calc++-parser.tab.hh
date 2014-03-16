@@ -40,12 +40,12 @@
 #ifndef YY_YY_CALC_PARSER_TAB_HH_INCLUDED
 # define YY_YY_CALC_PARSER_TAB_HH_INCLUDED
 // //                    "%code requires" blocks.
-#line 11174 "./doc/bison.texi" // lalr1.cc:372
+#line 9 "calc++-parser.yy" // lalr1.cc:387
 
-# include <string>
-class calcxx_driver;
+	# include <string>
+	class calcxx_driver;
 
-#line 49 "calc++-parser.tab.hh" // lalr1.cc:372
+#line 49 "calc++-parser.tab.hh" // lalr1.cc:387
 
 # include <cassert>
 # include <vector>
@@ -121,7 +121,7 @@ class calcxx_driver;
 
 
 namespace yy {
-#line 125 "calc++-parser.tab.hh" // lalr1.cc:372
+#line 125 "calc++-parser.tab.hh" // lalr1.cc:387
 
 
 
@@ -599,7 +599,7 @@ namespace yy {
     static const char* const yytname_[];
 #if YYDEBUG
   // YYRLINE[YYN] -- Source line where rule number YYN was defined.
-  static const unsigned short int yyrline_[];
+  static const unsigned char yyrline_[];
     /// Report on the debug stream that the rule \a r is going to be reduced.
     virtual void yy_reduce_print_ (int r);
     /// Print the state stack on the debug stream.
@@ -1047,7 +1047,7 @@ namespace yy {
 
 
 } // yy
-#line 1051 "calc++-parser.tab.hh" // lalr1.cc:372
+#line 1051 "calc++-parser.tab.hh" // lalr1.cc:387
 
 
 
