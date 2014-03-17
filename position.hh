@@ -52,7 +52,7 @@
 
 
 namespace yy {
-#line 56 "position.hh" // location.cc:332
+#line 56 "position.hh" // location.cc:291
   /// Abstract a position.
   class position
   {
@@ -176,5 +176,5 @@ namespace yy {
 
 
 } // yy
-#line 180 "position.hh" // location.cc:332
+#line 180 "position.hh" // location.cc:291
 #endif // !YY_YY_POSITION_HH_INCLUDED

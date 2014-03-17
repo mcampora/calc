@@ -40,12 +40,12 @@
 #ifndef YY_YY_CALC_PARSER_TAB_HH_INCLUDED
 # define YY_YY_CALC_PARSER_TAB_HH_INCLUDED
 // //                    "%code requires" blocks.
-#line 9 "calc++-parser.yy" // lalr1.cc:387
+#line 9 "calc++-parser.yy" // lalr1.cc:372
 
 	# include <string>
 	class calcxx_driver;
 
-#line 49 "calc++-parser.tab.hh" // lalr1.cc:387
+#line 49 "calc++-parser.tab.hh" // lalr1.cc:372
 
 # include <cassert>
 # include <vector>
@@ -121,7 +121,7 @@
 
 
 namespace yy {
-#line 125 "calc++-parser.tab.hh" // lalr1.cc:387
+#line 125 "calc++-parser.tab.hh" // lalr1.cc:372
 
 
 
@@ -290,6 +290,7 @@ namespace yy {
     {
       // "number"
       // exp
+      // function
       char dummy1[sizeof(int)];
 
       // "identifier"
@@ -693,8 +694,8 @@ namespace yy {
     enum
     {
       yyeof_ = 0,
-      yylast_ = 45,     ///< Last index in yytable_.
-      yynnts_ = 5,  ///< Number of nonterminal symbols.
+      yylast_ = 55,     ///< Last index in yytable_.
+      yynnts_ = 6,  ///< Number of nonterminal symbols.
       yyempty_ = -2,
       yyfinal_ = 3, ///< Termination state number.
       yyterror_ = 1,
@@ -780,6 +781,7 @@ namespace yy {
     {
       case 17: // "number"
       case 22: // exp
+      case 23: // function
         value.copy< int > (other.value);
         break;
 
@@ -807,6 +809,7 @@ namespace yy {
     {
       case 17: // "number"
       case 22: // exp
+      case 23: // function
         value.copy< int > (v);
         break;
 
@@ -862,6 +865,7 @@ namespace yy {
     {
       case 17: // "number"
       case 22: // exp
+      case 23: // function
         value.template destroy< int > ();
         break;
 
@@ -886,6 +890,7 @@ namespace yy {
     {
       case 17: // "number"
       case 22: // exp
+      case 23: // function
         value.move< int > (s.value);
         break;
 
@@ -1047,7 +1052,7 @@ namespace yy {
 
 
 } // yy
-#line 1051 "calc++-parser.tab.hh" // lalr1.cc:387
+#line 1056 "calc++-parser.tab.hh" // lalr1.cc:372
 
 
 

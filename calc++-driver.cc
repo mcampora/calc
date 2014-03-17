@@ -2,11 +2,24 @@
 #include "calc++-driver.hh"
 #include "calc++-parser.tab.hh"
 
+int fn_identity(int n) {
+	return n;
+}
+
+int fn_invert(int n) {
+	return !n;
+}
+
 calcxx_driver::calcxx_driver ()
   : trace_scanning (false), trace_parsing (false)
 {
+  // some examples of variables and functions
   variables["one"] = 1;
   variables["two"] = 2;
+  
+  functions["identity"] = fn_identity;
+  functions["invert"] = fn_invert;
+  
 }
 
 calcxx_driver::~calcxx_driver ()

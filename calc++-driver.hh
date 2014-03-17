@@ -16,6 +16,7 @@ public:
   virtual ~calcxx_driver ();
 
   std::map<std::string, int> variables;
+  std::map<std::string, int(*)(int)> functions;
 
   int result;
   // Handling the scanner.
