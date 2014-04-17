@@ -6,11 +6,9 @@ I compiled this program on Win7 using Cygwin and a separate download of Bison.
 > calc++ examples.txt     % to run the example and evaluate the content of a file
 
 Supports:
-- variables (assignements and usage)
-- function calls (to predefined symbols)
+- variables (usage of predefined strings)
+- function calls (used of predefined functions accepting one integer parameter)
 - boolean operators with integer expressions
-
-To do:
-- boolean operators with string litterals
+- boolean operators with string literals or variables
 
 
