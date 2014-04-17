@@ -15,7 +15,7 @@ public:
   calcxx_driver ();
   virtual ~calcxx_driver ();
 
-  std::map<std::string, int> variables;
+  std::map<std::string, std::string> variables;
   std::map<std::string, int(*)(int)> functions;
 
   int result;

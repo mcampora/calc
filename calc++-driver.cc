@@ -14,8 +14,8 @@ calcxx_driver::calcxx_driver ()
   : trace_scanning (false), trace_parsing (false)
 {
   // some examples of variables and functions
-  variables["one"] = 1;
-  variables["two"] = 2;
+  variables["one"] = "one";
+  variables["two"] = "two";
   
   functions["identity"] = fn_identity;
   functions["invert"] = fn_invert;

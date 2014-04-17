@@ -290,11 +290,14 @@ namespace yy {
     {
       // "number"
       // exp
+      // sexp
+      // iexp
       // function
       char dummy1[sizeof(int)];
 
       // "identifier"
       // "string"
+      // sval
       char dummy2[sizeof(std::string)];
 };
 
@@ -579,7 +582,7 @@ namespace yy {
   // number is the opposite.  If YYTABLE_NINF, syntax error.
   static const unsigned char yytable_[];
 
-  static const signed char yycheck_[];
+  static const unsigned char yycheck_[];
 
   // YYSTOS[STATE-NUM] -- The (internal number of the) accessing
   // symbol of state STATE-NUM.
@@ -694,10 +697,10 @@ namespace yy {
     enum
     {
       yyeof_ = 0,
-      yylast_ = 55,     ///< Last index in yytable_.
-      yynnts_ = 6,  ///< Number of nonterminal symbols.
+      yylast_ = 49,     ///< Last index in yytable_.
+      yynnts_ = 7,  ///< Number of nonterminal symbols.
       yyempty_ = -2,
-      yyfinal_ = 3, ///< Termination state number.
+      yyfinal_ = 15, ///< Termination state number.
       yyterror_ = 1,
       yyerrcode_ = 256,
       yyntokens_ = 18  ///< Number of tokens.
@@ -780,13 +783,16 @@ namespace yy {
       switch (other.type_get ())
     {
       case 17: // "number"
-      case 22: // exp
-      case 23: // function
+      case 20: // exp
+      case 21: // sexp
+      case 23: // iexp
+      case 24: // function
         value.copy< int > (other.value);
         break;
 
       case 15: // "identifier"
       case 16: // "string"
+      case 22: // sval
         value.copy< std::string > (other.value);
         break;
 
@@ -808,13 +814,16 @@ namespace yy {
       switch (this->type_get ())
     {
       case 17: // "number"
-      case 22: // exp
-      case 23: // function
+      case 20: // exp
+      case 21: // sexp
+      case 23: // iexp
+      case 24: // function
         value.copy< int > (v);
         break;
 
       case 15: // "identifier"
       case 16: // "string"
+      case 22: // sval
         value.copy< std::string > (v);
         break;
 
@@ -864,13 +873,16 @@ namespace yy {
     switch (yytype)
     {
       case 17: // "number"
-      case 22: // exp
-      case 23: // function
+      case 20: // exp
+      case 21: // sexp
+      case 23: // iexp
+      case 24: // function
         value.template destroy< int > ();
         break;
 
       case 15: // "identifier"
       case 16: // "string"
+      case 22: // sval
         value.template destroy< std::string > ();
         break;
 
@@ -889,13 +901,16 @@ namespace yy {
       switch (this->type_get ())
     {
       case 17: // "number"
-      case 22: // exp
-      case 23: // function
+      case 20: // exp
+      case 21: // sexp
+      case 23: // iexp
+      case 24: // function
         value.move< int > (s.value);
         break;
 
       case 15: // "identifier"
       case 16: // "string"
+      case 22: // sval
         value.move< std::string > (s.value);
         break;
 
@@ -1052,7 +1067,7 @@ namespace yy {
 
 
 } // yy
-#line 1056 "calc++-parser.tab.hh" // lalr1.cc:372
+#line 1071 "calc++-parser.tab.hh" // lalr1.cc:372
 
 
 

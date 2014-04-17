@@ -22,6 +22,7 @@
 %define parse.trace
 %define parse.error verbose
 %code {
+	# include <stdio.h>
 	# include "calc++-driver.hh"
 	# define OUT(e, v) std::cout << e << " -> " << v << "\n"
 	# define OUT2(e1, e2, v) std::cout << e1 << " " << e2 << " -> " << v << "\n"
@@ -47,45 +48,51 @@
 %token <std::string> IDENTIFIER "identifier"
 %token <std::string> STRING "string"
 %token <int> NUMBER "number"
-%type  <int> exp function
+%type  <std::string> sval
+%type  <int> sexp iexp exp ifunction
 %printer { yyoutput << $$; } <*>;
 
 %%
 %start unit;
 
 unit: 
-	assignments exp  { driver.result = $2; };
-
-assignments:
-	%empty                 	{}
-| 	assignments assignment 	{}
-;
-
-assignment:
-	IDENTIFIER ":=" exp { driver.variables[$1] = $3; }
-;
+	exp  { driver.result = $1; };
 
 exp:
-  	"identifier"	{ $$ = driver.variables[$1]; 	OUT($1, $$); 			}
-| 	"number"		{ $$ = $1; 						OUT($1, $$);			}
-| 	"string"		{ } //$$ = $1; 					OUT($1, $$);			}
-|	function		{ $$ = $1; }
-
-|	"(" exp ")"		{ $$ = $2; 						OUT3("(", $2, ")", $$);	}
-| 	"!" exp			{ $$ = !($2); 					OUT2("!", $2, $$);		}
-
-| 	exp "==" exp	{ $$ = $1 == $3; 				OUT3($1, "==", $3, $$);	}
-| 	exp "!=" exp	{ $$ = $1 != $3; 				OUT3($1, "!=", $3, $$);	}
-| 	exp "||" exp	{ $$ = $1 || $3; 				OUT3($1, "||", $3, $$);	}	
-| 	exp "&&" exp	{ $$ = $1 && $3; 				OUT3($1, "&&", $3, $$);	}
-| 	exp "<" exp		{ $$ = $1 <  $3; 				OUT3($1, "<",  $3, $$);	}
-| 	exp ">" exp		{ $$ = $1 >  $3; 				OUT3($1, ">",  $3, $$);	}
-| 	exp "<=" exp	{ $$ = $1 <= $3; 				OUT3($1, "<=", $3, $$);	}
-| 	exp ">=" exp	{ $$ = $1 >= $3; 				OUT3($1, ">=", $3, $$);	}
+	iexp  			{ $$ = $1; 						printf("%d\n", $1, $$);							}
+|   sexp			{ $$ = $1;						printf("%d\n", $1, $$);							}
+|	"(" exp ")"		{ $$ = $2; 						printf("(%d) => %d\n", $2, $$);					}
+| 	"!" exp			{ $$ = !($2); 					printf("!%d => %d\n", $2, $$);					}
+;
+	
+sexp:
+	sval "==" sval 	{ $$ = ($1 == $3); 		printf("%s == %s => %d\n", $1.c_str(), $3.c_str(), $$);	}
+|	sval "!=" sval 	{ $$ = ($1 != $3); 		printf("%s != %s => %d\n", $1.c_str(), $3.c_str(), $$);	}
+;
+	
+sval:
+  	"identifier"	{ $$ = driver.variables[$1]; 	printf("%s\n", $$.c_str());						}
+|	"string"  		{ $$ = $1; 						printf("%s\n", $1.c_str());            			}
 ;
 
-function:
- 	"identifier" "(" exp ")" { $$ = driver.functions[$1]($3); OUT2($1, $3, $$); }
+iexp:
+ 	"number"		{ $$ = $1; 						printf("%d\n", $$);								}
+|	ifunction		
+| 	exp "==" exp	{ $$ = $1 == $3; 				printf("%d %s %d => %d\n", $1, "==", $3, $$);	}
+| 	exp "!=" exp	{ $$ = $1 != $3; 				printf("%d %s %d => %d\n", $1, "!=", $3, $$);	}
+| 	exp "||" exp	{ $$ = $1 || $3; 				printf("%d %s %d => %d\n", $1, "||", $3, $$);	}	
+| 	exp "&&" exp	{ $$ = $1 && $3; 				printf("%d %s %d => %d\n", $1, "&&", $3, $$);	}
+| 	exp "<"  exp	{ $$ = $1 <  $3; 				printf("%d %s %d => %d\n", $1, "<",  $3, $$);	}
+| 	exp ">"  exp	{ $$ = $1 >  $3; 				printf("%d %s %d => %d\n", $1, ">",  $3, $$);	}
+| 	exp "<=" exp	{ $$ = $1 <= $3; 				printf("%d %s %d => %d\n", $1, "<=", $3, $$);	}
+| 	exp ">=" exp	{ $$ = $1 >= $3; 				printf("%d %s %d => %d\n", $1, ">=", $3, $$);	}
+;
+
+ifunction:
+ 	"identifier" "(" exp ")" { 
+		$$ = driver.functions[$1]($3); 
+		printf("%s(%d) => %d\n", $1.c_str(), $3, $$); 
+	}
 ;
 
 %%

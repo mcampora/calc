@@ -51,12 +51,13 @@
 // Unqualified %code blocks.
 #line 24 "calc++-parser.yy" // lalr1.cc:408
 
+	# include <stdio.h>
 	# include "calc++-driver.hh"
 	# define OUT(e, v) std::cout << e << " -> " << v << "\n"
 	# define OUT2(e1, e2, v) std::cout << e1 << " " << e2 << " -> " << v << "\n"
 	# define OUT3(e1, e2, e3, v) std::cout << e1 << " " << e2 << " " << e3 << " -> " << v << "\n"
 
-#line 60 "calc++-parser.tab.cc" // lalr1.cc:408
+#line 61 "calc++-parser.tab.cc" // lalr1.cc:408
 
 
 #ifndef YY_
@@ -142,7 +143,7 @@
 
 
 namespace yy {
-#line 146 "calc++-parser.tab.cc" // lalr1.cc:474
+#line 147 "calc++-parser.tab.cc" // lalr1.cc:474
 
   /* Return YYSTR after stripping away unnecessary quotes and
      backslashes, so that it's suitable for yyerror.  The heuristic is
@@ -245,13 +246,16 @@ namespace yy {
       switch (that.type_get ())
     {
       case 17: // "number"
-      case 22: // exp
-      case 23: // function
+      case 20: // exp
+      case 21: // sexp
+      case 23: // iexp
+      case 24: // function
         value.move< int > (that.value);
         break;
 
       case 15: // "identifier"
       case 16: // "string"
+      case 22: // sval
         value.move< std::string > (that.value);
         break;
 
@@ -271,13 +275,16 @@ namespace yy {
       switch (that.type_get ())
     {
       case 17: // "number"
-      case 22: // exp
-      case 23: // function
+      case 20: // exp
+      case 21: // sexp
+      case 23: // iexp
+      case 24: // function
         value.copy< int > (that.value);
         break;
 
       case 15: // "identifier"
       case 16: // "string"
+      case 22: // sval
         value.copy< std::string > (that.value);
         break;
 
@@ -315,37 +322,58 @@ namespace yy {
     {
             case 15: // "identifier"
 
-#line 51 "calc++-parser.yy" // lalr1.cc:617
-        { yyoutput << yysym.value.template as< std::string > (); }
-#line 321 "calc++-parser.tab.cc" // lalr1.cc:617
-        break;
-
-      case 16: // "string"
-
-#line 51 "calc++-parser.yy" // lalr1.cc:617
+#line 53 "calc++-parser.yy" // lalr1.cc:617
         { yyoutput << yysym.value.template as< std::string > (); }
 #line 328 "calc++-parser.tab.cc" // lalr1.cc:617
         break;
 
-      case 17: // "number"
+      case 16: // "string"
 
-#line 51 "calc++-parser.yy" // lalr1.cc:617
-        { yyoutput << yysym.value.template as< int > (); }
+#line 53 "calc++-parser.yy" // lalr1.cc:617
+        { yyoutput << yysym.value.template as< std::string > (); }
 #line 335 "calc++-parser.tab.cc" // lalr1.cc:617
         break;
 
-      case 22: // exp
+      case 17: // "number"
 
-#line 51 "calc++-parser.yy" // lalr1.cc:617
+#line 53 "calc++-parser.yy" // lalr1.cc:617
         { yyoutput << yysym.value.template as< int > (); }
 #line 342 "calc++-parser.tab.cc" // lalr1.cc:617
         break;
 
-      case 23: // function
+      case 20: // exp
 
-#line 51 "calc++-parser.yy" // lalr1.cc:617
+#line 53 "calc++-parser.yy" // lalr1.cc:617
         { yyoutput << yysym.value.template as< int > (); }
 #line 349 "calc++-parser.tab.cc" // lalr1.cc:617
+        break;
+
+      case 21: // sexp
+
+#line 53 "calc++-parser.yy" // lalr1.cc:617
+        { yyoutput << yysym.value.template as< int > (); }
+#line 356 "calc++-parser.tab.cc" // lalr1.cc:617
+        break;
+
+      case 22: // sval
+
+#line 53 "calc++-parser.yy" // lalr1.cc:617
+        { yyoutput << yysym.value.template as< std::string > (); }
+#line 363 "calc++-parser.tab.cc" // lalr1.cc:617
+        break;
+
+      case 23: // iexp
+
+#line 53 "calc++-parser.yy" // lalr1.cc:617
+        { yyoutput << yysym.value.template as< int > (); }
+#line 370 "calc++-parser.tab.cc" // lalr1.cc:617
+        break;
+
+      case 24: // function
+
+#line 53 "calc++-parser.yy" // lalr1.cc:617
+        { yyoutput << yysym.value.template as< int > (); }
+#line 377 "calc++-parser.tab.cc" // lalr1.cc:617
         break;
 
 
@@ -467,7 +495,7 @@ namespace yy {
   	yyla.location.begin.filename = yyla.location.end.filename = &driver.file;
 }
 
-#line 471 "calc++-parser.tab.cc" // lalr1.cc:725
+#line 499 "calc++-parser.tab.cc" // lalr1.cc:725
 
     /* Initialize the stack.  The initial state will be set in
        yynewstate, since the latter expects the semantical and the
@@ -562,13 +590,16 @@ namespace yy {
         switch (yyr1_[yyn])
     {
       case 17: // "number"
-      case 22: // exp
-      case 23: // function
+      case 20: // exp
+      case 21: // sexp
+      case 23: // iexp
+      case 24: // function
         yylhs.value.build< int > ();
         break;
 
       case 15: // "identifier"
       case 16: // "string"
+      case 22: // sval
         yylhs.value.build< std::string > ();
         break;
 
@@ -590,121 +621,122 @@ namespace yy {
           switch (yyn)
             {
   case 2:
-#line 57 "calc++-parser.yy" // lalr1.cc:847
+#line 59 "calc++-parser.yy" // lalr1.cc:847
     { driver.result = yystack_[0].value.as< int > (); }
-#line 596 "calc++-parser.tab.cc" // lalr1.cc:847
+#line 627 "calc++-parser.tab.cc" // lalr1.cc:847
     break;
 
   case 3:
-#line 60 "calc++-parser.yy" // lalr1.cc:847
-    {}
-#line 602 "calc++-parser.tab.cc" // lalr1.cc:847
+#line 62 "calc++-parser.yy" // lalr1.cc:847
+    { yylhs.value.as< int > () = yystack_[0].value.as< int > (); 						printf("%d\n", yystack_[0].value.as< int > (), yylhs.value.as< int > ());							}
+#line 633 "calc++-parser.tab.cc" // lalr1.cc:847
     break;
 
   case 4:
-#line 61 "calc++-parser.yy" // lalr1.cc:847
-    {}
-#line 608 "calc++-parser.tab.cc" // lalr1.cc:847
+#line 63 "calc++-parser.yy" // lalr1.cc:847
+    { yylhs.value.as< int > () = yystack_[0].value.as< int > ();						printf("%d\n", yystack_[0].value.as< int > (), yylhs.value.as< int > ());							}
+#line 639 "calc++-parser.tab.cc" // lalr1.cc:847
     break;
 
   case 5:
-#line 65 "calc++-parser.yy" // lalr1.cc:847
-    { driver.variables[yystack_[2].value.as< std::string > ()] = yystack_[0].value.as< int > (); }
-#line 614 "calc++-parser.tab.cc" // lalr1.cc:847
+#line 64 "calc++-parser.yy" // lalr1.cc:847
+    { yylhs.value.as< int > () = yystack_[1].value.as< int > (); 						printf("(%d) => %d\n", yystack_[1].value.as< int > (), yylhs.value.as< int > ());					}
+#line 645 "calc++-parser.tab.cc" // lalr1.cc:847
     break;
 
   case 6:
-#line 69 "calc++-parser.yy" // lalr1.cc:847
-    { yylhs.value.as< int > () = driver.variables[yystack_[0].value.as< std::string > ()]; 	OUT(yystack_[0].value.as< std::string > (), yylhs.value.as< int > ()); 			}
-#line 620 "calc++-parser.tab.cc" // lalr1.cc:847
+#line 65 "calc++-parser.yy" // lalr1.cc:847
+    { yylhs.value.as< int > () = !(yystack_[0].value.as< int > ()); 					printf("!%d => %d\n", yystack_[0].value.as< int > (), yylhs.value.as< int > ());					}
+#line 651 "calc++-parser.tab.cc" // lalr1.cc:847
     break;
 
   case 7:
-#line 70 "calc++-parser.yy" // lalr1.cc:847
-    { yylhs.value.as< int > () = yystack_[0].value.as< int > (); 						OUT(yystack_[0].value.as< int > (), yylhs.value.as< int > ());			}
-#line 626 "calc++-parser.tab.cc" // lalr1.cc:847
+#line 69 "calc++-parser.yy" // lalr1.cc:847
+    { yylhs.value.as< int > () = (yystack_[2].value.as< std::string > () == yystack_[0].value.as< std::string > ()); 		printf("%s == %s => %d\n", yystack_[2].value.as< std::string > ().c_str(), yystack_[0].value.as< std::string > ().c_str(), yylhs.value.as< int > ());	}
+#line 657 "calc++-parser.tab.cc" // lalr1.cc:847
     break;
 
   case 8:
-#line 71 "calc++-parser.yy" // lalr1.cc:847
-    { }
-#line 632 "calc++-parser.tab.cc" // lalr1.cc:847
+#line 70 "calc++-parser.yy" // lalr1.cc:847
+    { yylhs.value.as< int > () = (yystack_[2].value.as< std::string > () != yystack_[0].value.as< std::string > ()); 		printf("%s != %s => %d\n", yystack_[2].value.as< std::string > ().c_str(), yystack_[0].value.as< std::string > ().c_str(), yylhs.value.as< int > ());	}
+#line 663 "calc++-parser.tab.cc" // lalr1.cc:847
     break;
 
   case 9:
-#line 72 "calc++-parser.yy" // lalr1.cc:847
-    { yylhs.value.as< int > () = yystack_[0].value.as< int > (); }
-#line 638 "calc++-parser.tab.cc" // lalr1.cc:847
+#line 74 "calc++-parser.yy" // lalr1.cc:847
+    { yylhs.value.as< std::string > () = driver.variables[yystack_[0].value.as< std::string > ()]; 	printf("%s\n", yylhs.value.as< std::string > ().c_str());						}
+#line 669 "calc++-parser.tab.cc" // lalr1.cc:847
     break;
 
   case 10:
-#line 74 "calc++-parser.yy" // lalr1.cc:847
-    { yylhs.value.as< int > () = yystack_[1].value.as< int > (); 						OUT3("(", yystack_[1].value.as< int > (), ")", yylhs.value.as< int > ());	}
-#line 644 "calc++-parser.tab.cc" // lalr1.cc:847
+#line 75 "calc++-parser.yy" // lalr1.cc:847
+    { yylhs.value.as< std::string > () = yystack_[0].value.as< std::string > (); 						printf("%s\n", yystack_[0].value.as< std::string > ().c_str());            			}
+#line 675 "calc++-parser.tab.cc" // lalr1.cc:847
     break;
 
   case 11:
-#line 75 "calc++-parser.yy" // lalr1.cc:847
-    { yylhs.value.as< int > () = !(yystack_[0].value.as< int > ()); 					OUT2("!", yystack_[0].value.as< int > (), yylhs.value.as< int > ());		}
-#line 650 "calc++-parser.tab.cc" // lalr1.cc:847
-    break;
-
-  case 12:
-#line 77 "calc++-parser.yy" // lalr1.cc:847
-    { yylhs.value.as< int > () = yystack_[2].value.as< int > () == yystack_[0].value.as< int > (); 				OUT3(yystack_[2].value.as< int > (), "==", yystack_[0].value.as< int > (), yylhs.value.as< int > ());	}
-#line 656 "calc++-parser.tab.cc" // lalr1.cc:847
+#line 79 "calc++-parser.yy" // lalr1.cc:847
+    { yylhs.value.as< int > () = yystack_[0].value.as< int > (); 						printf("%d\n", yylhs.value.as< int > ());								}
+#line 681 "calc++-parser.tab.cc" // lalr1.cc:847
     break;
 
   case 13:
-#line 78 "calc++-parser.yy" // lalr1.cc:847
-    { yylhs.value.as< int > () = yystack_[2].value.as< int > () != yystack_[0].value.as< int > (); 				OUT3(yystack_[2].value.as< int > (), "!=", yystack_[0].value.as< int > (), yylhs.value.as< int > ());	}
-#line 662 "calc++-parser.tab.cc" // lalr1.cc:847
+#line 81 "calc++-parser.yy" // lalr1.cc:847
+    { yylhs.value.as< int > () = yystack_[2].value.as< int > () == yystack_[0].value.as< int > (); 				printf("%d %s %d => %d\n", yystack_[2].value.as< int > (), "==", yystack_[0].value.as< int > (), yylhs.value.as< int > ());	}
+#line 687 "calc++-parser.tab.cc" // lalr1.cc:847
     break;
 
   case 14:
-#line 79 "calc++-parser.yy" // lalr1.cc:847
-    { yylhs.value.as< int > () = yystack_[2].value.as< int > () || yystack_[0].value.as< int > (); 				OUT3(yystack_[2].value.as< int > (), "||", yystack_[0].value.as< int > (), yylhs.value.as< int > ());	}
-#line 668 "calc++-parser.tab.cc" // lalr1.cc:847
+#line 82 "calc++-parser.yy" // lalr1.cc:847
+    { yylhs.value.as< int > () = yystack_[2].value.as< int > () != yystack_[0].value.as< int > (); 				printf("%d %s %d => %d\n", yystack_[2].value.as< int > (), "!=", yystack_[0].value.as< int > (), yylhs.value.as< int > ());	}
+#line 693 "calc++-parser.tab.cc" // lalr1.cc:847
     break;
 
   case 15:
-#line 80 "calc++-parser.yy" // lalr1.cc:847
-    { yylhs.value.as< int > () = yystack_[2].value.as< int > () && yystack_[0].value.as< int > (); 				OUT3(yystack_[2].value.as< int > (), "&&", yystack_[0].value.as< int > (), yylhs.value.as< int > ());	}
-#line 674 "calc++-parser.tab.cc" // lalr1.cc:847
+#line 83 "calc++-parser.yy" // lalr1.cc:847
+    { yylhs.value.as< int > () = yystack_[2].value.as< int > () || yystack_[0].value.as< int > (); 				printf("%d %s %d => %d\n", yystack_[2].value.as< int > (), "||", yystack_[0].value.as< int > (), yylhs.value.as< int > ());	}
+#line 699 "calc++-parser.tab.cc" // lalr1.cc:847
     break;
 
   case 16:
-#line 81 "calc++-parser.yy" // lalr1.cc:847
-    { yylhs.value.as< int > () = yystack_[2].value.as< int > () <  yystack_[0].value.as< int > (); 				OUT3(yystack_[2].value.as< int > (), "<",  yystack_[0].value.as< int > (), yylhs.value.as< int > ());	}
-#line 680 "calc++-parser.tab.cc" // lalr1.cc:847
+#line 84 "calc++-parser.yy" // lalr1.cc:847
+    { yylhs.value.as< int > () = yystack_[2].value.as< int > () && yystack_[0].value.as< int > (); 				printf("%d %s %d => %d\n", yystack_[2].value.as< int > (), "&&", yystack_[0].value.as< int > (), yylhs.value.as< int > ());	}
+#line 705 "calc++-parser.tab.cc" // lalr1.cc:847
     break;
 
   case 17:
-#line 82 "calc++-parser.yy" // lalr1.cc:847
-    { yylhs.value.as< int > () = yystack_[2].value.as< int > () >  yystack_[0].value.as< int > (); 				OUT3(yystack_[2].value.as< int > (), ">",  yystack_[0].value.as< int > (), yylhs.value.as< int > ());	}
-#line 686 "calc++-parser.tab.cc" // lalr1.cc:847
+#line 85 "calc++-parser.yy" // lalr1.cc:847
+    { yylhs.value.as< int > () = yystack_[2].value.as< int > () <  yystack_[0].value.as< int > (); 				printf("%d %s %d => %d\n", yystack_[2].value.as< int > (), "<",  yystack_[0].value.as< int > (), yylhs.value.as< int > ());	}
+#line 711 "calc++-parser.tab.cc" // lalr1.cc:847
     break;
 
   case 18:
-#line 83 "calc++-parser.yy" // lalr1.cc:847
-    { yylhs.value.as< int > () = yystack_[2].value.as< int > () <= yystack_[0].value.as< int > (); 				OUT3(yystack_[2].value.as< int > (), "<=", yystack_[0].value.as< int > (), yylhs.value.as< int > ());	}
-#line 692 "calc++-parser.tab.cc" // lalr1.cc:847
+#line 86 "calc++-parser.yy" // lalr1.cc:847
+    { yylhs.value.as< int > () = yystack_[2].value.as< int > () >  yystack_[0].value.as< int > (); 				printf("%d %s %d => %d\n", yystack_[2].value.as< int > (), ">",  yystack_[0].value.as< int > (), yylhs.value.as< int > ());	}
+#line 717 "calc++-parser.tab.cc" // lalr1.cc:847
     break;
 
   case 19:
-#line 84 "calc++-parser.yy" // lalr1.cc:847
-    { yylhs.value.as< int > () = yystack_[2].value.as< int > () >= yystack_[0].value.as< int > (); 				OUT3(yystack_[2].value.as< int > (), ">=", yystack_[0].value.as< int > (), yylhs.value.as< int > ());	}
-#line 698 "calc++-parser.tab.cc" // lalr1.cc:847
+#line 87 "calc++-parser.yy" // lalr1.cc:847
+    { yylhs.value.as< int > () = yystack_[2].value.as< int > () <= yystack_[0].value.as< int > (); 				printf("%d %s %d => %d\n", yystack_[2].value.as< int > (), "<=", yystack_[0].value.as< int > (), yylhs.value.as< int > ());	}
+#line 723 "calc++-parser.tab.cc" // lalr1.cc:847
     break;
 
   case 20:
 #line 88 "calc++-parser.yy" // lalr1.cc:847
-    { yylhs.value.as< int > () = driver.functions[yystack_[3].value.as< std::string > ()](yystack_[1].value.as< int > ()); OUT2(yystack_[3].value.as< std::string > (), yystack_[1].value.as< int > (), yylhs.value.as< int > ()); }
-#line 704 "calc++-parser.tab.cc" // lalr1.cc:847
+    { yylhs.value.as< int > () = yystack_[2].value.as< int > () >= yystack_[0].value.as< int > (); 				printf("%d %s %d => %d\n", yystack_[2].value.as< int > (), ">=", yystack_[0].value.as< int > (), yylhs.value.as< int > ());	}
+#line 729 "calc++-parser.tab.cc" // lalr1.cc:847
+    break;
+
+  case 21:
+#line 92 "calc++-parser.yy" // lalr1.cc:847
+    { yylhs.value.as< int > () = driver.functions[yystack_[3].value.as< std::string > ()](yystack_[1].value.as< int > ()); 
+		printf("%s(%d) => %d\n", yystack_[3].value.as< std::string > ().c_str(), yystack_[1].value.as< int > (), yylhs.value.as< int > ()); }
+#line 736 "calc++-parser.tab.cc" // lalr1.cc:847
     break;
 
 
-#line 708 "calc++-parser.tab.cc" // lalr1.cc:847
+#line 740 "calc++-parser.tab.cc" // lalr1.cc:847
             default:
               break;
             }
@@ -959,85 +991,83 @@ namespace yy {
   }
 
 
-  const signed char calcxx_parser::yypact_ninf_ = -5;
+  const signed char calcxx_parser::yypact_ninf_ = -4;
 
   const signed char calcxx_parser::yytable_ninf_ = -1;
 
   const signed char
   calcxx_parser::yypact_[] =
   {
-      -5,    24,    17,    -5,    21,    21,    19,    -5,    -5,    -5,
-      42,    -5,    22,    -3,    42,    21,    21,    21,    21,    21,
-      21,    21,    21,    21,    21,    -5,    42,    34,    42,    42,
-      42,    42,    42,    42,    42,    42,    -5
+      10,    10,    10,    19,    -4,    -4,    47,    31,    -4,     5,
+      -4,    -4,    -3,    31,    10,    -4,    10,    10,    10,    10,
+      10,    10,    10,    10,    30,    30,    -4,    23,    31,    31,
+      31,    31,    31,    31,    31,    31,    -4,    -4,    -4,    -4
   };
 
   const unsigned char
   calcxx_parser::yydefact_[] =
   {
-       3,     0,     0,     1,     0,     0,     6,     8,     7,     4,
-       2,     9,     6,     0,    11,     0,     0,     0,     0,     0,
-       0,     0,     0,     0,     0,    10,     5,     0,    12,    13,
-      16,    17,    18,    19,    14,    15,    20
+       0,     0,     0,     9,    10,    11,     0,     2,     4,     0,
+       3,    12,     0,     6,     0,     1,     0,     0,     0,     0,
+       0,     0,     0,     0,     0,     0,     5,     0,    13,    14,
+      17,    18,    19,    20,    15,    16,     9,     7,     8,    21
   };
 
   const signed char
   calcxx_parser::yypgoto_[] =
   {
-      -5,    -5,    -5,    -5,    -4,    -5
+      -4,    -4,    -1,    -4,    24,    -4,    -4
   };
 
   const signed char
   calcxx_parser::yydefgoto_[] =
   {
-      -1,     1,     2,     9,    10,    11
+      -1,     6,     7,     8,     9,    10,    11
   };
 
   const unsigned char
   calcxx_parser::yytable_[] =
   {
-      13,    14,    25,    17,    18,    19,    20,    21,    22,    23,
-      24,    26,    27,    28,    29,    30,    31,    32,    33,    34,
-      35,     4,    15,    16,     3,     4,    16,     0,     0,     0,
-       0,     5,     6,     7,     8,     5,    12,     7,     8,    36,
-      17,    18,    19,    20,    21,    22,    23,    24,    17,    18,
-      19,    20,    21,    22,    23,    24
+      12,    13,    26,    16,    17,    18,    19,    20,    21,    22,
+      23,    24,    25,    27,     1,    28,    29,    30,    31,    32,
+      33,    34,    35,    14,     2,     3,     4,     5,    39,    16,
+      17,    18,    19,    20,    21,    22,    23,    16,    17,    18,
+      19,    20,    21,    22,    23,    36,     4,    15,    37,    38
   };
 
-  const signed char
+  const unsigned char
   calcxx_parser::yycheck_[] =
   {
-       4,     5,     5,     6,     7,     8,     9,    10,    11,    12,
-      13,    15,    16,    17,    18,    19,    20,    21,    22,    23,
-      24,     4,     3,     4,     0,     4,     4,    -1,    -1,    -1,
-      -1,    14,    15,    16,    17,    14,    15,    16,    17,     5,
-       6,     7,     8,     9,    10,    11,    12,    13,     6,     7,
-       8,     9,    10,    11,    12,    13
+       1,     2,     5,     6,     7,     8,     9,    10,    11,    12,
+      13,     6,     7,    14,     4,    16,    17,    18,    19,    20,
+      21,    22,    23,     4,    14,    15,    16,    17,     5,     6,
+       7,     8,     9,    10,    11,    12,    13,     6,     7,     8,
+       9,    10,    11,    12,    13,    15,    16,     0,    24,    25
   };
 
   const unsigned char
   calcxx_parser::yystos_[] =
   {
-       0,    19,    20,     0,     4,    14,    15,    16,    17,    21,
-      22,    23,    15,    22,    22,     3,     4,     6,     7,     8,
-       9,    10,    11,    12,    13,     5,    22,    22,    22,    22,
-      22,    22,    22,    22,    22,    22,     5
+       0,     4,    14,    15,    16,    17,    19,    20,    21,    22,
+      23,    24,    20,    20,     4,     0,     6,     7,     8,     9,
+      10,    11,    12,    13,     6,     7,     5,    20,    20,    20,
+      20,    20,    20,    20,    20,    20,    15,    22,    22,     5
   };
 
   const unsigned char
   calcxx_parser::yyr1_[] =
   {
-       0,    18,    19,    20,    20,    21,    22,    22,    22,    22,
-      22,    22,    22,    22,    22,    22,    22,    22,    22,    22,
-      23
+       0,    18,    19,    20,    20,    20,    20,    21,    21,    22,
+      22,    23,    23,    23,    23,    23,    23,    23,    23,    23,
+      23,    24
   };
 
   const unsigned char
   calcxx_parser::yyr2_[] =
   {
-       0,     2,     2,     0,     2,     3,     1,     1,     1,     1,
-       3,     2,     3,     3,     3,     3,     3,     3,     3,     3,
-       4
+       0,     2,     1,     1,     1,     3,     2,     3,     3,     1,
+       1,     1,     1,     3,     3,     3,     3,     3,     3,     3,
+       3,     4
   };
 
 
@@ -1050,16 +1080,16 @@ namespace yy {
   "\"end of file\"", "error", "$undefined", "\":=\"", "\"(\"", "\")\"",
   "\"==\"", "\"!=\"", "\"<\"", "\">\"", "\"<=\"", "\">=\"", "\"||\"",
   "\"&&\"", "\"!\"", "\"identifier\"", "\"string\"", "\"number\"",
-  "$accept", "unit", "assignments", "assignment", "exp", "function", YY_NULLPTR
+  "$accept", "unit", "exp", "sexp", "sval", "iexp", "function", YY_NULLPTR
   };
 
 #if YYDEBUG
   const unsigned char
   calcxx_parser::yyrline_[] =
   {
-       0,    57,    57,    60,    61,    65,    69,    70,    71,    72,
-      74,    75,    77,    78,    79,    80,    81,    82,    83,    84,
-      88
+       0,    59,    59,    62,    63,    64,    65,    69,    70,    74,
+      75,    79,    80,    81,    82,    83,    84,    85,    86,    87,
+      88,    92
   };
 
   // Print the state stack on the debug stream.
@@ -1094,8 +1124,8 @@ namespace yy {
 
 
 } // yy
-#line 1098 "calc++-parser.tab.cc" // lalr1.cc:1155
-#line 91 "calc++-parser.yy" // lalr1.cc:1156
+#line 1128 "calc++-parser.tab.cc" // lalr1.cc:1155
+#line 96 "calc++-parser.yy" // lalr1.cc:1156
 
 void
 yy::calcxx_parser::error (const location_type& l,
