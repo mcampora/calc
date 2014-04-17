@@ -1,1 +1,2 @@
-invert((1 >= 2) && ("me" == "you") || !(one == two))
+check invert((1 >= 2) && ("me" == "you") || !(one == two)) error "symbol" 15
+check (one == "one") error "symbol" 15

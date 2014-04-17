@@ -292,7 +292,7 @@ namespace yy {
       // exp
       // sexp
       // iexp
-      // function
+      // ifunction
       char dummy1[sizeof(int)];
 
       // "identifier"
@@ -334,9 +334,11 @@ namespace yy {
         TOK_OR = 267,
         TOK_AND = 268,
         TOK_NOT = 269,
-        TOK_IDENTIFIER = 270,
-        TOK_STRING = 271,
-        TOK_NUMBER = 272
+        TOK_CHECK = 270,
+        TOK_ERROR = 271,
+        TOK_IDENTIFIER = 272,
+        TOK_STRING = 273,
+        TOK_NUMBER = 274
       };
     };
 
@@ -487,6 +489,14 @@ namespace yy {
 
     static inline
     symbol_type
+    make_CHECK (const location_type& l);
+
+    static inline
+    symbol_type
+    make_ERROR (const location_type& l);
+
+    static inline
+    symbol_type
     make_IDENTIFIER (const std::string& v, const location_type& l);
 
     static inline
@@ -582,7 +592,7 @@ namespace yy {
   // number is the opposite.  If YYTABLE_NINF, syntax error.
   static const unsigned char yytable_[];
 
-  static const unsigned char yycheck_[];
+  static const signed char yycheck_[];
 
   // YYSTOS[STATE-NUM] -- The (internal number of the) accessing
   // symbol of state STATE-NUM.
@@ -697,13 +707,13 @@ namespace yy {
     enum
     {
       yyeof_ = 0,
-      yylast_ = 49,     ///< Last index in yytable_.
-      yynnts_ = 7,  ///< Number of nonterminal symbols.
+      yylast_ = 63,     ///< Last index in yytable_.
+      yynnts_ = 8,  ///< Number of nonterminal symbols.
       yyempty_ = -2,
-      yyfinal_ = 15, ///< Termination state number.
+      yyfinal_ = 14, ///< Termination state number.
       yyterror_ = 1,
       yyerrcode_ = 256,
-      yyntokens_ = 18  ///< Number of tokens.
+      yyntokens_ = 20  ///< Number of tokens.
     };
 
 
@@ -747,9 +757,9 @@ namespace yy {
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     1,     2,     3,     4,
        5,     6,     7,     8,     9,    10,    11,    12,    13,    14,
-      15,    16,    17
+      15,    16,    17,    18,    19
     };
-    const unsigned int user_token_number_max_ = 272;
+    const unsigned int user_token_number_max_ = 274;
     const token_number_type undef_token_ = 2;
 
     if (static_cast<int>(t) <= yyeof_)
@@ -782,17 +792,17 @@ namespace yy {
   {
       switch (other.type_get ())
     {
-      case 17: // "number"
-      case 20: // exp
-      case 21: // sexp
-      case 23: // iexp
-      case 24: // function
+      case 19: // "number"
+      case 23: // exp
+      case 24: // sexp
+      case 26: // iexp
+      case 27: // ifunction
         value.copy< int > (other.value);
         break;
 
-      case 15: // "identifier"
-      case 16: // "string"
-      case 22: // sval
+      case 17: // "identifier"
+      case 18: // "string"
+      case 25: // sval
         value.copy< std::string > (other.value);
         break;
 
@@ -813,17 +823,17 @@ namespace yy {
     (void) v;
       switch (this->type_get ())
     {
-      case 17: // "number"
-      case 20: // exp
-      case 21: // sexp
-      case 23: // iexp
-      case 24: // function
+      case 19: // "number"
+      case 23: // exp
+      case 24: // sexp
+      case 26: // iexp
+      case 27: // ifunction
         value.copy< int > (v);
         break;
 
-      case 15: // "identifier"
-      case 16: // "string"
-      case 22: // sval
+      case 17: // "identifier"
+      case 18: // "string"
+      case 25: // sval
         value.copy< std::string > (v);
         break;
 
@@ -872,17 +882,17 @@ namespace yy {
     // Type destructor.
     switch (yytype)
     {
-      case 17: // "number"
-      case 20: // exp
-      case 21: // sexp
-      case 23: // iexp
-      case 24: // function
+      case 19: // "number"
+      case 23: // exp
+      case 24: // sexp
+      case 26: // iexp
+      case 27: // ifunction
         value.template destroy< int > ();
         break;
 
-      case 15: // "identifier"
-      case 16: // "string"
-      case 22: // sval
+      case 17: // "identifier"
+      case 18: // "string"
+      case 25: // sval
         value.template destroy< std::string > ();
         break;
 
@@ -900,17 +910,17 @@ namespace yy {
     super_type::move(s);
       switch (this->type_get ())
     {
-      case 17: // "number"
-      case 20: // exp
-      case 21: // sexp
-      case 23: // iexp
-      case 24: // function
+      case 19: // "number"
+      case 23: // exp
+      case 24: // sexp
+      case 26: // iexp
+      case 27: // ifunction
         value.move< int > (s.value);
         break;
 
-      case 15: // "identifier"
-      case 16: // "string"
-      case 22: // sval
+      case 17: // "identifier"
+      case 18: // "string"
+      case 25: // sval
         value.move< std::string > (s.value);
         break;
 
@@ -963,7 +973,7 @@ namespace yy {
     yytoken_number_[] =
     {
        0,   256,   257,   258,   259,   260,   261,   262,   263,   264,
-     265,   266,   267,   268,   269,   270,   271,   272
+     265,   266,   267,   268,   269,   270,   271,   272,   273,   274
     };
     return static_cast<token_type> (yytoken_number_[type]);
   }
@@ -1047,6 +1057,18 @@ namespace yy {
   }
 
   calcxx_parser::symbol_type
+  calcxx_parser::make_CHECK (const location_type& l)
+  {
+    return symbol_type (token::TOK_CHECK, l);
+  }
+
+  calcxx_parser::symbol_type
+  calcxx_parser::make_ERROR (const location_type& l)
+  {
+    return symbol_type (token::TOK_ERROR, l);
+  }
+
+  calcxx_parser::symbol_type
   calcxx_parser::make_IDENTIFIER (const std::string& v, const location_type& l)
   {
     return symbol_type (token::TOK_IDENTIFIER, v, l);
@@ -1067,7 +1089,7 @@ namespace yy {
 
 
 } // yy
-#line 1071 "calc++-parser.tab.hh" // lalr1.cc:372
+#line 1093 "calc++-parser.tab.hh" // lalr1.cc:372
 
 
 

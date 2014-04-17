@@ -36,6 +36,7 @@ blank  [ \t]
 
 {blank}+ loc.step ();
 [\n]+    loc.lines (yyleng); loc.step ();
+[\r]+    loc.lines (yyleng); loc.step ();
 "("      return yy::calcxx_parser::make_LPAREN(loc);
 ")"      return yy::calcxx_parser::make_RPAREN(loc);
 ":="     return yy::calcxx_parser::make_ASSIGN(loc);
@@ -48,6 +49,8 @@ blank  [ \t]
 "||"     return yy::calcxx_parser::make_OR(loc);
 "&&"     return yy::calcxx_parser::make_AND(loc);
 "!"      return yy::calcxx_parser::make_NOT(loc);
+"check"  return yy::calcxx_parser::make_CHECK(loc);
+"error"  return yy::calcxx_parser::make_ERROR(loc);
 
 {int}    {
   errno = 0;

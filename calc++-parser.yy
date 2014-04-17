@@ -24,9 +24,6 @@
 %code {
 	# include <stdio.h>
 	# include "calc++-driver.hh"
-	# define OUT(e, v) std::cout << e << " -> " << v << "\n"
-	# define OUT2(e1, e2, v) std::cout << e1 << " " << e2 << " -> " << v << "\n"
-	# define OUT3(e1, e2, e3, v) std::cout << e1 << " " << e2 << " " << e3 << " -> " << v << "\n"
 }
 
 %define api.token.prefix {TOK_}
@@ -44,19 +41,35 @@
   OR      "||"
   AND     "&&"
   NOT     "!"
+  CHECK   "check"
+  ERROR	  "error"
 ;
 %token <std::string> IDENTIFIER "identifier"
 %token <std::string> STRING "string"
 %token <int> NUMBER "number"
 %type  <std::string> sval
 %type  <int> sexp iexp exp ifunction
-%printer { yyoutput << $$; } <*>;
+//%printer { yyoutput << $$; } <*>;
 
 %%
-%start unit;
+%start checks;
 
-unit: 
-	exp  { driver.result = $1; };
+checks:
+	%empty
+|	check checks { driver.result = 1; }
+;
+
+check:
+	"check" exp "error" "string" "number" { 
+		printf("check %d ", $2); 
+		if ($2 == 0) {
+			printf("error on %s, error code %d!\n", $4.c_str(), $5);
+		}
+		else {
+			printf("ok!\n");
+		}
+	}
+;
 
 exp:
 	iexp  			{ $$ = $1; 						printf("%d\n", $1, $$);							}
@@ -77,7 +90,7 @@ sval:
 
 iexp:
  	"number"		{ $$ = $1; 						printf("%d\n", $$);								}
-|	ifunction		
+|	ifunction		{ $$ = $1; 						printf("%d\n", $$);								}
 | 	exp "==" exp	{ $$ = $1 == $3; 				printf("%d %s %d => %d\n", $1, "==", $3, $$);	}
 | 	exp "!=" exp	{ $$ = $1 != $3; 				printf("%d %s %d => %d\n", $1, "!=", $3, $$);	}
 | 	exp "||" exp	{ $$ = $1 || $3; 				printf("%d %s %d => %d\n", $1, "||", $3, $$);	}	
