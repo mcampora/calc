@@ -16,3 +16,6 @@ Supports:
 Todo
 - remove double quotes from string literals
 - support predefined functions with variable argument list
+- support date helpers (maybe just a predefined function)
+- support regexp match operator (maybe just a predefined function)
+- test Jison, the generation of a Javascript parser and grammar generalisation
